@@ -12,6 +12,7 @@ from tensorflow.keras.layers import Dense
 from tensorflow.keras.layers import LSTM
 from sklearn.metrics import mean_squared_error
 from statsmodels.tsa.arima_model import ARIMA
+import yfinance as yf
 
 load_dotenv()
 
@@ -91,5 +92,25 @@ async def plot_stock_data(ctx, stock_symbol = None, x_data = None, y_data = None
 
     fig.write_image(file_path + stock_symbol + ".jpg")
     await ctx.send(file = discord.File(file_path + stock_symbol + '.jpg'))
+
+# displays the pe ratio of the company
+@bot.command(name = "p/e-ratio")
+async def peratio(ctx, stock_symbol = None):
+
+    stock_symbol = stock_symbol.upper()
+    stock_symbol_info = yf.Ticker(stock_symbol)
+    await ctx.channel.send(stock_symbol_info.info['trailingPE'])
+
+# displays the sector, beta value and general information of the company
+@bot.command(name = "information")
+async def information(ctx, stock_symbol = None, type_of_information = None):
+
+    stock_symbol = stock_symbol.upper()
+    stock_symbol_info = yf.Ticker(stock_symbol)
+    if(type_of_information == "all"):
+        for key, value in stock_symbol_info.info.items():
+            await ctx.channel.send(f"{key}: {value}")
+    else:
+        await ctx.channel.send(stock_symbol_info.info[type_of_information])
 
 bot.run(DISCORD_TOKEN)
