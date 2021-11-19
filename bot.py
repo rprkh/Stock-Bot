@@ -2,17 +2,18 @@ import discord
 import os
 from dotenv import load_dotenv
 from discord.ext import commands
+import time
 import pandas_datareader as pdr
 from datetime import datetime
 import pandas as pd
+import numpy as np
+import lxml
+from lxml import html
 import plotly.graph_objects as go
 import matplotlib.pyplot as plt
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense
-from tensorflow.keras.layers import LSTM
-from sklearn.metrics import mean_squared_error
-from statsmodels.tsa.arima_model import ARIMA
+import random
 import yfinance as yf
+import requests
 
 load_dotenv()
 
@@ -101,16 +102,88 @@ async def peratio(ctx, stock_symbol = None):
     stock_symbol_info = yf.Ticker(stock_symbol)
     await ctx.channel.send(stock_symbol_info.info['trailingPE'])
 
-# displays the sector, beta value and general information of the company
+# displays information about a specific company
 @bot.command(name = "information")
 async def information(ctx, stock_symbol = None, type_of_information = None):
 
     stock_symbol = stock_symbol.upper()
     stock_symbol_info = yf.Ticker(stock_symbol)
+
     if(type_of_information == "all"):
         for key, value in stock_symbol_info.info.items():
             await ctx.channel.send(f"{key}: {value}")
     else:
         await ctx.channel.send(stock_symbol_info.info[type_of_information])
 
+# extracts the income statement, balance sheet and cash flow for the desired company
+@bot.command(name = "financials")
+async def data_scraper(ctx, stock_symbol = None, type_of_data = None):
+
+    if (type_of_data == "income-statement"):
+        join = 'financials'
+        url = 'https://finance.yahoo.com/quote/' + stock_symbol.upper() + '/' + join + '?p=' + stock_symbol.upper()
+    if (type_of_data == "balance-sheet"):
+        url = 'https://finance.yahoo.com/quote/' + stock_symbol.upper() + '/' + type_of_data + '?p=' + stock_symbol.upper()
+    if (type_of_data == "cash-flow"):
+        url = 'https://finance.yahoo.com/quote/' + stock_symbol.upper() + '/' + type_of_data + '?p=' + stock_symbol.upper()
+
+    # simulating a request from the Chrome browser
+    headers = {
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Cache-Control': 'max-age=0',
+        'Connection': 'close',
+        'DNT': '1', # Do Not Track Request Header 
+        'Pragma': 'no-cache',
+        'Referrer': 'https://google.com',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36'
+        }
+    
+    web_page = requests.get(url, headers = headers)
+    tree = html.fromstring(web_page.content)
+
+    for i in tree.xpath("//h1/text()"):
+        type_of_data = type_of_data.title()
+        await ctx.channel.send(type_of_data + " for " + i)
+
+    rows = tree.xpath("//div[contains(@class, 'D(tbr)')]")
+    assert len(rows) > 0
+
+    extracted_rows = []
+
+    for row in rows:
+        extracted_row = []
+        element = row.xpath("./div")
+
+        count = 0
+
+        for el in element:
+            try:
+                (text, ) = el.xpath('.//span/text()[1]')
+                extracted_row.append(text)
+            except ValueError:
+                extracted_row.append(np.NaN)
+                count = count + 1
+
+        if (count < 4):
+            extracted_rows.append(extracted_row)
+
+    df = pd.DataFrame(extracted_rows)
+    df = df.set_index(0)
+    df = df.transpose()
+
+    columns = list(df.columns)
+    columns[0] = 'Date'
+    df = df.set_axis(columns, axis = 'columns', inplace = False)
+
+    numeric_columns = list(df.columns)[1::]
+
+    for col in numeric_columns:
+        df[col] = df[col].str.replace(',', '') # remove the comma seperators
+        df[col] = df[col].astype(np.float64) # convert the type from object to float64
+
+    csv_save = df.to_csv(file_path + stock_symbol.upper() + '-' + type_of_data + '.csv', header = True, index = False)
+    await ctx.send(file = discord.File(file_path + stock_symbol.upper() + '-' + type_of_data + '.csv'))
+    
 bot.run(DISCORD_TOKEN)
