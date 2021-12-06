@@ -18,8 +18,4 @@ The following command list describes the functions of the Discord Bot.
 
 ### Usage
 
-![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/i1.PNG)
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/i2.PNG)
-![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/i3.PNG)
-![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/i4.PNG)
-![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/i5.PNG)
