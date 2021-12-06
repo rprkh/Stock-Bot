@@ -15,3 +15,11 @@ The following command list describes the functions of the Discord Bot.
 | Displays the PE ratio of the company    | `--p/e-ratio`                                             |
 | Displays general stock information      | `--information`                                           |
 | Displays the company's financials       | `--financials`                                            |
+
+### Usage
+
+![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/i1.PNG)
+![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/i2.PNG)
+![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/i3.PNG)
+![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/i4.PNG)
+![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/i5.PNG)
