@@ -1,10 +1,10 @@
 # Stock Bot
 
-Discord Bot that extracts company financials and provides graphical visualizations of the same.
+Discord Bot that extracts company financials and provides a graphical visualizations of the data.
 
 ### Commands
 
-The following command list best descirbes the functions of the Discord Bot.
+The following command list describes the functions of the Discord Bot.
 
 **Command List**
 
