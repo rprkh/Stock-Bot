@@ -1,6 +1,6 @@
 import discord
-import os
-from dotenv import load_dotenv
+# import os
+# from dotenv import load_dotenv
 from discord.ext import commands
 import time
 import pandas_datareader as pdr
@@ -14,11 +14,19 @@ import matplotlib.pyplot as plt
 import random
 import yfinance as yf
 import requests
+from yahoo_fin import stock_info
 
-load_dotenv()
+# load_dotenv()
 
-file_path = os.getenv("file_path")
-DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
+# file_path = os.getenv("file_path")
+# DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
+
+def read_token():
+    with open("token.txt", "r") as f:
+        lines = f.readlines()
+        return lines[0].strip()
+
+DISCORD_TOKEN = read_token()
 
 bot = commands.Bot(command_prefix = "--", help_command = None)
 
@@ -38,6 +46,12 @@ async def on_ready():
         print("Stock Bot is in", guild_count, "guild")
     else:
         print("Stock Bot is in", guild_count, "guilds")
+    
+@bot.command(name = "help")
+async def ping(ctx):
+
+    await ctx.channel.send("Help will always be given at Hogwarts to those who deserve it")
+    await ctx.channel.send("\nLOL\nLook at the README to know more about my functions")
 
 # gets historical stock data for the specified company in the selected range
 @bot.command(name = "get", aliases = ["historical"])
@@ -56,21 +70,35 @@ async def send_historical_stock_data(ctx, stock_symbol = None, start_date = None
         end = datetime(end_date_extract.year, end_date_extract.month, end_date_extract.day)
     )
 
-    saved_to_csv = stock_data.to_csv(file_path + stock_symbol + '.csv', header = True, index = True)
-    await ctx.send(file = discord.File(file_path + stock_symbol + '.csv'))
+    saved_to_csv = stock_data.to_csv(stock_symbol + '.csv', header = True, index = True)
+    await ctx.send(stock_symbol + "'s stock data from " + start_date + " to " + end_date)
+    await ctx.send(file = discord.File(stock_symbol + '.csv'))
 
 # visualize the stock data using different parameters
 @bot.command(name = "visualize", aliases = ["plot", "display"])
-async def plot_stock_data(ctx, stock_symbol = None, x_data = None, y_data = None):
+async def plot_stock_data(ctx, stock_symbol = None, x_data = None, y_data = None, start_date = None, end_date = None):
 
     stock_symbol = stock_symbol.upper()
+    
+    # accept input in dd-mm-yyyy format
+    start_date_extract = datetime.strptime(start_date, "%d-%m-%Y") 
+    end_date_extract = datetime.strptime(end_date, "%d-%m-%Y")
+
+    # pass data in yyyymmdd format
+    stock_data = pdr.get_data_yahoo(
+        symbols = stock_symbol, 
+        start = datetime(start_date_extract.year, start_date_extract.month, start_date_extract.day + 1), 
+        end = datetime(end_date_extract.year, end_date_extract.month, end_date_extract.day)
+    )
+
+    saved_to_csv = stock_data.to_csv(stock_symbol + '.csv', header = True, index = True)
+    df = pd.read_csv(stock_symbol + '.csv')
+
     x_data = x_data.title()
     if(y_data == "adj-close"):
         y_data = "Adj Close"
     else:
         y_data = y_data.title()    
-
-    df = pd.read_csv(file_path + stock_symbol + '.csv')
 
     fig = go.Figure([go.Scatter(x = df[x_data], y = df[y_data])])
     
@@ -91,8 +119,10 @@ async def plot_stock_data(ctx, stock_symbol = None, x_data = None, y_data = None
         )
     )
 
-    fig.write_image(file_path + stock_symbol + ".jpg")
-    await ctx.send(file = discord.File(file_path + stock_symbol + '.jpg'))
+    fig.write_image(stock_symbol + ".jpg")
+    
+    await ctx.send("Visualization of " + x_data + " vs " + y_data + " for " + stock_symbol + " stocks from " + start_date + " to " + end_date)
+    await ctx.send(file = discord.File(stock_symbol + '.jpg'))
 
 # displays the pe ratio of the company
 @bot.command(name = "p/e-ratio")
@@ -183,7 +213,75 @@ async def data_scraper(ctx, stock_symbol = None, type_of_data = None):
         df[col] = df[col].str.replace(',', '') # remove the comma seperators
         df[col] = df[col].astype(np.float64) # convert the type from object to float64
 
-    csv_save = df.to_csv(file_path + stock_symbol.upper() + '-' + type_of_data + '.csv', header = True, index = False)
-    await ctx.send(file = discord.File(file_path + stock_symbol.upper() + '-' + type_of_data + '.csv'))
+    csv_save = df.to_csv(stock_symbol.upper() + '-' + type_of_data + '.csv', header = True, index = False)
+    await ctx.send(file = discord.File(stock_symbol.upper() + '-' + type_of_data + '.csv'))
+
+@bot.command(name = "recommendations")
+async def recommender(ctx, rec_type = None):
+
+    rec_type = rec_type.upper()
+
+    if(rec_type == "S&P500"):
+        tickers = stock_info.tickers_sp500()
+    else:
+        tickers = []
+        tickers.append(rec_type)
+
+    recommendations = []
+
+    for ticker in tickers:
+        lhs_url = 'https://query2.finance.yahoo.com/v10/finance/quoteSummary/'
+        rhs_url = '?formatted=true&crumb=swg7qs5y9UP&lang=en-US&region=US&' \
+                'modules=upgradeDowngradeHistory,recommendationTrend,' \
+                'financialData,earningsHistory,earningsTrend,industryTrend&' \
+                'corsDomain=finance.yahoo.com'
+        
+        headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+        url =  lhs_url + ticker + rhs_url
+        r = requests.get(url, headers=headers)
+        if not r.ok:
+            recommendation = 6
+        try:
+            result = r.json()['quoteSummary']['result'][0]
+            recommendation =result['financialData']['recommendationMean']['fmt']
+        except:
+            recommendation = 6
+        
+        recommendations.append(recommendation)
+
+        await ctx.channel.send(ticker + " has an average recommendation of: " + str(recommendation))
+        time.sleep(0.1)
     
+    df = pd.DataFrame(list(zip(tickers, recommendations)), columns =['Company', 'Recommendation']) 
+    df = df.set_index('Company')
+    df['Recommendation'] = df['Recommendation'].astype(float)
+
+    description_list = []
+
+    for i in range(len(df)):
+        if(round(df.Recommendation[i]) == -1):
+            description = 'No Recommendation'
+        if(round(df.Recommendation[i]) == 1):
+            description = 'Strong Buy'
+        if(round(df.Recommendation[i]) == 2):
+            description = 'Buy'
+        if(round(df.Recommendation[i]) == 3):
+            description = 'Hold'
+        if(round(df.Recommendation[i]) == 4):
+            description = 'Under-Performing'
+        if(round(df.Recommendation[i]) == 5):
+            description = 'Sell'
+        description_list.append(description)
+        
+    df['Description'] = description_list
+
+    df.to_csv(rec_type + '-recommendations.csv')
+
+    if(rec_type == 'S&P500'):
+        await ctx.channel.send("Download this file to look at recommendations of the S&P500 companies")
+    else:
+        await ctx.channel.send("Download this file to look at the recommendations for " + rec_type)
+        
+    await ctx.send(file = discord.File(rec_type + '-recommendations.csv'))
+
 bot.run(DISCORD_TOKEN)
