@@ -15,6 +15,7 @@ The following command list describes the functions of the Discord Bot.
 | Displays the PE ratio of the company    | `--p/e-ratio`                                             |
 | Displays general stock information      | `--information`                                           |
 | Displays the company's financials       | `--financials`                                            |
+| Displays the company's recommendations  | `--recommendations`                                       |
 
 ### Usage
 
