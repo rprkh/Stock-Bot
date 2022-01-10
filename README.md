@@ -1,6 +1,6 @@
 # Stock Bot
 
-Discord Bot that extracts company financials and provides a graphical visualization of the data.
+Discord Bot that extracts company financials from the internet and provides a graphical visualization of the data. The bot is hosted on Heroku and is online 24/7.
 
 ### Commands
 
