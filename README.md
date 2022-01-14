@@ -3,7 +3,7 @@
 Discord Bot that provides a convenient way to access stock data from the internet. Visualize stock data in any time range, get stock recommendations and much more !!   
 The bot is hosted on Heroku and is online 24/7.
 
-# Add the Bot to a Server
+## Add the Bot to a Server
 
 **Step 1**: 
 
@@ -29,7 +29,7 @@ That's it !!
 
 Just 3 simple steps to follow and now you can use the Stock Bot in your own server along with your friends.
 
-### Commands
+## Commands
 
 The following command list best describes the functions of the Stock Bot.
 
@@ -44,13 +44,13 @@ The following command list best describes the functions of the Stock Bot.
 | Displays the company's financials       | `--financials`                                            |
 | Displays the company's recommendations  | `--recommendations`                                       |
 
-# Using the Bot
+## Using the Bot
 
 #### Note: All commands should begin with `--`.
 
-# 1. Get Historical Stock Data
+## 1. Get Historical Stock Data
 
-`--get googl 25-06-2014 10-01-2021`
+```--get googl 25-06-2014 10-01-2021```
 
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h3.PNG)
 
@@ -58,47 +58,47 @@ You can change the name of the company and vary the time range based on your pre
 
 Alternately you could also replace `--get` and use the command's alias `--historical` instead, like this:
 
-`--historical googl 25-06-2014 10-01-2021`
+```--historical googl 25-06-2014 10-01-2021```
 
 The output would be the same for both the cases.
 
-# 2. Visualize Stock Data
+## 2. Visualize Stock Data
 
-`--visualize tsla date adj-close 05-08-2015 19-12-2021`
+```--visualize tsla date adj-close 05-08-2015 19-12-2021```
 
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h4.PNG)
 
 You can change the company name, xaxis, yaxis and time range for the visualization as demonstrated below:
 
-`--visualize ibm date volume 16-02-2019 25-09-2019`
+```--visualize ibm date volume 16-02-2019 25-09-2019```
 
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h5.PNG)
 
-# 3. Get the PE Ratio of the Company
+## 3. Get the PE Ratio of the Company
 
-`--p/e-ratio aapl`
+```--p/e-ratio aapl```
 
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h6.PNG)
 
-# 4. General Stock Information
+## 4. General Stock Information
 
 This command will print out all the publicly available information about Netflix.
 
-`--information nflx all`
+```--information nflx all```
 
 In case you want specific company information you should use:
 
-`--information nflx shortRatio`
+```--information nflx shortRatio```
 
-`--information nflx bookValue`
+```--information nflx bookValue```
 
-`--information nflx beta`
+```--information nflx beta```
 
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h7.PNG)
 
 Depending on the use case both the company name and the type of information can be modified
 
-#### 5. Get Company Financials
+## 5. Get Company Financials
 
 The 3 types of financials that can be extracted are
  - Balance Sheet
@@ -107,25 +107,25 @@ The 3 types of financials that can be extracted are
 
 The followings command sends a `.csv` file to the text channel of the server.
 
-`--financials msft balance-sheet`
+```--financials msft balance-sheet```
 
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h8.PNG)
 
-`--financials msft cash-flow`
+```--financials msft cash-flow```
 
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h9.PNG)
 
-`--financials msft income-statement`
+```--financials msft income-statement```
 
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h10.PNG)
 
-# 6. Stock Recommendations
+## 6. Stock Recommendations
 
 Displays the stock recommendations (buy/sell)
 
 The following command can be used to display the stocks information:
 
-`--recommendations amzn`
+```--recommendations amzn```
 
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h11.PNG)
 
@@ -133,6 +133,6 @@ For S&P500 companies the recommendations will be sent from A-Z in the form of a 
 
 You can use the following command to look at recommendations for all the S&P500 companies.
 
-`--recommendations sp500`
+```--recommendations sp500```
 
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h12.PNG)
