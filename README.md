@@ -3,29 +3,31 @@
 Discord Bot that provides a convenient way to access stock data from the internet. Visualize stock data in any time range, get stock recommendations and much more !!   
 The bot is hosted on Heroku and is online 24/7.
 
-### Add the Bot to a Server
+# Add the Bot to a Server
 
 **Step 1**: 
+
 Simply paste this link into a new tab in your browser.
+
 https://discord.com/api/oauth2/authorize?client_id=906905618739245058&permissions=271972432&scope=bot
 
 **Step 2**: 
-Login to your Discord account if you haven't already.
-Select the server you want to add the Stock Bot to.
-This is what it should look like:
-![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h1.PNG) 
+
+Login to your Discord account if you haven't already and select the server you want the Stock Bot to get added to.
+
 Next click on `Continue`.
 
-#### Note: Make sure you have **Manage Server** permissions.
+#### Note: Make sure you have Manage Server permissions.
 
 **Step 3**:
+
 Approve all the permission for the Stock Bot to make use of all its functions.
-![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h2.PNG)
 
 Click on `Authorize` and you should be good to go. The Stock Bot will get added to your server.
 
 That's it !!
-Just 3 simple steps to follow and now you can use the Bot in your own server along with your friends.
+
+Just 3 simple steps to follow and now you can use the Stock Bot in your own server along with your friends.
 
 ### Commands
 
@@ -42,52 +44,59 @@ The following command list best describes the functions of the Stock Bot.
 | Displays the company's financials       | `--financials`                                            |
 | Displays the company's recommendations  | `--recommendations`                                       |
 
-### Using the Bot
+# Using the Bot
 
-**Note**: All commands should begin with a `--` prefix.
+#### Note: All commands should begin with `--`.
 
-#### 1. Get Historical Stock Data
+# 1. Get Historical Stock Data
 
 `--get googl 25-06-2014 10-01-2021`
+
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h3.PNG)
 
 You can change the name of the company and vary the time range based on your preference. 
 
 Alternately you could also replace `--get` and use the command's alias `--historical` instead, like this:
+
 `--historical googl 25-06-2014 10-01-2021`
 
 The output would be the same for both the cases.
 
-#### 2. Visualize Stock Data
+# 2. Visualize Stock Data
 
 `--visualize tsla date adj-close 05-08-2015 19-12-2021`
+
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h4.PNG)
 
 You can change the company name, xaxis, yaxis and time range for the visualization as demonstrated below:
 
 `--visualize ibm date volume 16-02-2019 25-09-2019`
+
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h5.PNG)
 
-#### 3. Get the PE Ratio of the Company
+# 3. Get the PE Ratio of the Company
 
 `--p/e-ratio aapl`
+
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h6.PNG)
 
-#### 4. General Stock Information
+# 4. General Stock Information
 
 This command will print out all the publicly available information about Netflix.
+
 `--information nflx all`
 
 In case you want specific company information you should use:
+
 `--information nflx shortRatio`
+
 `--information nflx bookValue`
+
 `--information nflx beta`
 
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h7.PNG)
 
 Depending on the use case both the company name and the type of information can be modified
-
-The entire list of information you can get for a specific stock is:
 
 #### 5. Get Company Financials
 
@@ -97,24 +106,33 @@ The 3 types of financials that can be extracted are
  - Income Statement
 
 The followings command sends a `.csv` file to the text channel of the server.
+
 `--financials msft balance-sheet`
+
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h8.PNG)
 
 `--financials msft cash-flow`
+
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h9.PNG)
 
 `--financials msft income-statement`
+
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h10.PNG)
 
-#### 6. Stock Recommendations
+# 6. Stock Recommendations
 
 Displays the stock recommendations (buy/sell)
 
 The following command can be used to display the stocks information:
+
 `--recommendations amzn`
+
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h11.PNG)
 
 For S&P500 companies the recommendations will be sent from A-Z in the form of a message to the text channel followed by a `.csv` file containing the recommendations of all the companies.
+
 You can use the following command to look at recommendations for all the S&P500 companies.
+
 `--recommendations sp500`
+
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h12.PNG)
