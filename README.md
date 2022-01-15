@@ -27,7 +27,7 @@ Click on `Authorize` and you should be good to go. The Stock Bot will get added 
 
 That's it !!
 
-Just 3 simple steps to follow and now you can use the Stock Bot in your own server along with your friends.
+Just 3 simple steps to follow and now you can use the Stock Bot in your server with your friends.
 
 ## Commands
 
@@ -88,15 +88,19 @@ This command will print out all the publicly available information about Netflix
 
 In case you want specific company information you should use:
 
-```--information nflx shortRatio```
+```--information nflx specific_information```
 
-```--information nflx bookValue```
+A few examples of the same are as follow:
 
-```--information nflx beta```
+ - ```--information nflx shortRatio```
+
+ - ```--information nflx bookValue```
+
+ - ```--information nflx beta```
 
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h7.PNG)
 
-Depending on the use case both the company name and the type of information can be modified
+Depending on the use case both the company name and the type of information can be modified.
 
 ## 5. Get Company Financials
 
