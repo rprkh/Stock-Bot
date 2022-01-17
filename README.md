@@ -100,7 +100,7 @@ Depending on the use case both the company name and the type of information can 
 
 ## 5. Get Company Financials
 
-The 3 types of financials that can be extracted are
+The 3 types of financials that can be extracted are:
  - Balance Sheet
  - Cash Flow
  - Income Statement
@@ -121,7 +121,7 @@ The followings command sends a `.csv` file to the text channel of the server.
 
 ## 6. Stock Recommendations
 
-Displays the stock recommendations (buy/sell)
+Displays the stock recommendations (Buy / Sell)
 
 The following command can be used to display the stocks information:
 
