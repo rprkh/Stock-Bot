@@ -13,11 +13,11 @@ https://discord.com/api/oauth2/authorize?client_id=906905618739245058&permission
 
 **Step 2**: 
 
-Login to your Discord account if you haven't already and select the server you want the Stock Bot to get added to.
+Login to your Discord account if you haven't already and select the server you want the Stock Bot to get added to. 
 
 Next click on `Continue`.
 
-#### Note: Make sure you have Manage Server permissions.
+#### Note: Make sure you have Manage Server permissions. If you do not have the necessary permissions you can request the server owner to give it to you or you can create your own Discord server.
 
 **Step 3**:
 
