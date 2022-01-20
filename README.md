@@ -50,7 +50,9 @@ The following command list best describes the functions of the Stock Bot.
 
 ## 1. Get Historical Stock Data
 
-`--get googl 25-06-2014 10-01-2021`
+```bash
+--get googl 25-06-2014 10-01-2021
+```
 
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h3.PNG)
 
@@ -58,25 +60,33 @@ You can change the name of the company and vary the time range based on your pre
 
 Alternately you could also replace `--get` and use the command's alias `--historical` instead, like this:
 
-`--historical googl 25-06-2014 10-01-2021`
+```bash
+--historical googl 25-06-2014 10-01-2021
+```
 
 The output would be the same for both the cases.
 
 ## 2. Visualize Stock Data
 
-`--visualize tsla date adj-close 05-08-2015 19-12-2021`
+```bash
+--visualize tsla date adj-close 05-08-2015 19-12-2021
+```
 
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h4.PNG)
 
 You can change the company name, X-axis, Y-axis and time range for the visualization as demonstrated below:
 
-`--visualize ibm date volume 16-02-2019 25-09-2019`
+```bash
+--visualize ibm date volume 16-02-2019 25-09-2019
+```
 
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h5.PNG)
 
 ## 3. Get the PE Ratio of the Company
 
-`--p/e-ratio aapl`
+```bash
+--p/e-ratio aapl
+```
 
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h6.PNG)
 
@@ -84,15 +94,23 @@ You can change the company name, X-axis, Y-axis and time range for the visualiza
 
 This command will print out all the publicly available information about Netflix.
 
-`--information nflx all`
+```bash
+--information nflx all
+```
 
 In case you want specific company information you should use:
 
-`--information nflx shortRatio`
+```bash
+--information nflx shortRatio
+```
 
-`--information nflx bookValue`
+```bash
+--information nflx bookValue
+```
 
-`--information nflx beta`
+```bash
+--information nflx beta
+```
 
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h7.PNG)
 
@@ -107,15 +125,21 @@ The 3 types of financials that can be extracted are:
 
 The followings command sends a `.csv` file to the text channel of the server.
 
-`--financials msft balance-sheet`
+```bash
+--financials msft balance-sheet
+```
 
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h8.PNG)
 
-`--financials msft cash-flow`
+```bash
+--financials msft cash-flow
+```
 
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h9.PNG)
 
-`--financials msft income-statement`
+```bash
+--financials msft income-statement
+```
 
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h10.PNG)
 
@@ -125,7 +149,9 @@ Displays the stock recommendations (Buy / Sell)
 
 The following command can be used to display the stocks information:
 
-`--recommendations amzn`
+```bash
+--recommendations amzn
+```
 
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h11.PNG)
 
@@ -133,6 +159,8 @@ For S&P500 companies the recommendations will be sent from A-Z in the form of a 
 
 You can use the following command to look at recommendations for all the S&P500 companies.
 
-`--recommendations sp500`
+```bash
+--recommendations sp500
+```
 
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h12.PNG)
