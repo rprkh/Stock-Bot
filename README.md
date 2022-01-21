@@ -7,11 +7,9 @@ The bot is hosted on Heroku and is online 24/7.
 
 **Step 1**: 
 
-Simply paste this link into a new tab in your browser.
+Open this link in a new tab in your browser.
 
-```bash
 https://discord.com/api/oauth2/authorize?client_id=906905618739245058&permissions=271972432&scope=bot
-```
 
 **Step 2**: 
 
