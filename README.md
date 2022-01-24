@@ -102,13 +102,9 @@ In case you want specific company information you should use:
 
 ```bash
 --information nflx shortRatio
-```
 
-```bash
 --information nflx bookValue
-```
 
-```bash
 --information nflx beta
 ```
 
