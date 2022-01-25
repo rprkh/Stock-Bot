@@ -160,5 +160,3 @@ You can use the following command to look at recommendations for all the S&P500 
 ```
 
 ![Nav Bar](https://github.com/rprkh/Stock-Bot/blob/main/images/h12.PNG)
-
-Testing Tracker Bot webhook
